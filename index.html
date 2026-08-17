@@ -3,1302 +3,946 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TKA Bahasa Indonesia</title>
 
 <style>
+    * {
+        box-sizing: border-box;
+    }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #fff8d9, #e8f5ff, #f3e5ff);
+        color: #18243a;
+        min-height: 100vh;
+    }
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
-  background:
-    linear-gradient(135deg,#fff5c7,#e1f8ff,#f5ddff);
-  color:#26324a;
-}
+    .container {
+        width: min(1000px, 94%);
+        margin: 30px auto;
+        background: rgba(255,255,255,.94);
+        border-radius: 28px;
+        padding: 30px;
+        box-shadow: 0 12px 35px rgba(0,0,0,.10);
+    }
 
-.app{
-  max-width:1000px;
-  margin:auto;
-  padding:25px 18px;
-}
+    .header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
 
-/* ================= BERANDA ================= */
+    .header h1 {
+        margin: 0;
+        font-size: 34px;
+        color: #3949ab;
+    }
 
-.hero,
-.question-card,
-.result{
-  background:rgba(255,255,255,.96);
-  border-radius:30px;
-  box-shadow:0 15px 40px rgba(0,0,0,.08);
-}
+    .header p {
+        color: #65748b;
+        margin-top: 8px;
+    }
 
-.hero{
-  text-align:center;
-  padding:45px 25px;
-}
+    .progress {
+        height: 10px;
+        background: #e7eaf2;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 25px;
+    }
 
-.mascot{
-  font-size:70px;
-  margin-bottom:10px;
-}
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #6c63ff, #00bcd4);
+        transition: width .3s ease;
+    }
 
-h1{
-  font-size:clamp(2rem,6vw,4rem);
-  color:#ff5c7a;
-  font-weight:900;
-  margin:10px 0;
-}
+    .question-label {
+        display: inline-block;
+        background: #eef0ff;
+        color: #5364c7;
+        padding: 10px 18px;
+        border-radius: 30px;
+        font-weight: bold;
+        margin-bottom: 18px;
+    }
 
-.subtitle{
-  font-size:1.15rem;
-  line-height:1.6;
-  margin-bottom:30px;
-}
+    .stimulus {
+        background: #f4f6ff;
+        border-left: 6px solid #7278ff;
+        border-radius: 20px;
+        padding: 25px;
+        font-size: 19px;
+        line-height: 1.8;
+        margin-bottom: 28px;
+    }
 
-.features{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin:25px 0;
-}
+    .question {
+        font-size: 23px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
 
-.feature{
-  padding:20px 10px;
-  background:white;
-  border-radius:20px;
-  box-shadow:0 7px 20px rgba(0,0,0,.06);
-  font-weight:bold;
-}
+    .options {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
 
-.feature span{
-  display:block;
-  font-size:32px;
-  margin-bottom:8px;
-}
+    .option {
+        width: 100%;
+        border: 3px solid #e6e9f2;
+        background: white;
+        border-radius: 20px;
+        padding: 19px 22px;
+        font-size: 18px;
+        text-align: left;
+        cursor: pointer;
+        transition: .2s;
+    }
 
-.start-btn{
-  border:0;
-  background:linear-gradient(135deg,#ff5c7a,#ff9f43);
-  color:white;
-  padding:16px 35px;
-  border-radius:50px;
-  font-size:1.1rem;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.2s;
-  box-shadow:0 8px 20px rgba(255,92,122,.25);
-}
+    .option:hover {
+        transform: translateY(-2px);
+        border-color: #8790ff;
+        background: #f8f8ff;
+    }
 
-.start-btn:hover{
-  transform:translateY(-3px) scale(1.03);
-}
+    .option.selected {
+        border-color: #5964e8;
+        background: #eef0ff;
+    }
 
-.hidden{
-  display:none!important;
-}
+    .option.correct {
+        border-color: #2eaf68;
+        background: #e8fff1;
+    }
 
-/* ================= QUIZ ================= */
+    .option.wrong {
+        border-color: #e35d6a;
+        background: #fff0f2;
+    }
 
-.quiz{
-  margin-top:10px;
-}
+    .bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        gap: 15px;
+    }
 
-.topbar{
-  background:white;
-  border-radius:20px;
-  padding:15px;
-  margin-bottom:15px;
-  box-shadow:0 8px 25px rgba(0,0,0,.06);
-}
+    button.next {
+        border: none;
+        background: #263550;
+        color: white;
+        padding: 15px 28px;
+        border-radius: 30px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
-.progress-text{
-  font-weight:bold;
-  margin-bottom:10px;
-}
+    button.next:hover {
+        background: #394a70;
+    }
 
-.progress{
-  height:12px;
-  background:#e8e8e8;
-  border-radius:20px;
-  overflow:hidden;
-}
+    button.next:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
 
-.progress-fill{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#ff5c7a,#ffca3a);
-  transition:.3s;
-}
+    .loading,
+    .error,
+    .result {
+        text-align: center;
+        padding: 50px 20px;
+    }
 
-.question-card{
-  padding:30px;
-}
+    .loading {
+        font-size: 20px;
+    }
 
-.question-number{
-  color:#ff5c7a;
-  font-weight:bold;
-  margin-bottom:15px;
-}
+    .result h2 {
+        font-size: 32px;
+        color: #4b55c9;
+    }
 
-.category{
-  display:inline-block;
-  background:#eef0ff;
-  color:#6269c9;
-  padding:7px 12px;
-  border-radius:20px;
-  font-size:.85rem;
-  font-weight:bold;
-  margin-bottom:15px;
-}
+    .score {
+        font-size: 50px;
+        font-weight: bold;
+        margin: 20px 0;
+    }
 
-.stimulus{
-  background:#f5f7ff;
-  border-left:5px solid #7c83fd;
-  padding:20px;
-  border-radius:15px;
-  line-height:1.75;
-  margin-bottom:20px;
-  white-space:pre-line;
-}
+    .restart {
+        border: none;
+        background: #5964e8;
+        color: white;
+        padding: 15px 28px;
+        border-radius: 30px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
-.question-text{
-  font-size:1.2rem;
-  line-height:1.6;
-  font-weight:bold;
-  margin-bottom:20px;
-}
+    @media(max-width:600px) {
+        .container {
+            padding: 20px;
+            margin: 15px auto;
+        }
 
-/* ================= PILIHAN JAWABAN ================= */
+        .header h1 {
+            font-size: 27px;
+        }
 
-.options{
-  display:grid;
-  gap:14px;
-}
+        .stimulus {
+            font-size: 17px;
+        }
 
-.option{
-  width:100%;
-  border:3px solid #e8eaf2;
-  background:white;
-  padding:18px 20px;
-  border-radius:18px;
-  text-align:left;
-  cursor:pointer;
-  font-size:1rem;
-  line-height:1.55;
-  transition:.2s;
-  color:#26324a;
-  box-shadow:0 4px 10px rgba(0,0,0,.03);
-}
+        .question {
+            font-size: 20px;
+        }
 
-.option:hover{
-  border-color:#ff9f43;
-  background:#fffaf3;
-  transform:translateY(-2px);
-  box-shadow:0 8px 18px rgba(0,0,0,.07);
-}
-
-.option.selected{
-  border-color:#ff5c7a;
-  background:#fff0f3;
-  box-shadow:0 7px 18px rgba(255,92,122,.12);
-}
-
-/* ================= NAVIGASI ================= */
-
-.navigation{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin-top:25px;
-}
-
-.nav-btn{
-  border:0;
-  padding:13px 25px;
-  border-radius:30px;
-  cursor:pointer;
-  font-weight:bold;
-  background:#26324a;
-  color:white;
-  transition:.2s;
-}
-
-.nav-btn:hover{
-  transform:translateY(-2px);
-  opacity:.92;
-}
-
-/* ================= HASIL ================= */
-
-.result{
-  text-align:center;
-  padding:45px 25px;
-}
-
-.result-icon{
-  font-size:70px;
-}
-
-.score{
-  font-size:5rem;
-  font-weight:900;
-  color:#ff5c7a;
-  margin:20px 0;
-}
-
-.result-message{
-  font-size:1.2rem;
-  line-height:1.6;
-  margin-bottom:25px;
-}
-
-/* ================= LOADING ================= */
-
-.loading{
-  text-align:center;
-  padding:40px;
-}
-
-.spinner{
-  font-size:50px;
-  animation:spin 1s infinite linear;
-}
-
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-/* ================= ERROR ================= */
-
-.error{
-  background:#fff0f0;
-  color:#b42318;
-  padding:20px;
-  border-radius:15px;
-  margin-top:20px;
-  line-height:1.6;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:700px){
-
-  .features{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .question-card{
-    padding:20px;
-  }
-
-  .navigation{
-    flex-direction:column;
-  }
-
-  .nav-btn{
-    width:100%;
-  }
-
-  .option{
-    padding:16px;
-  }
-
-  .question-text{
-    font-size:1.1rem;
-  }
-
-}
-
+        .option {
+            font-size: 16px;
+        }
+    }
 </style>
 </head>
 
-
 <body>
 
-<div class="app">
+<div class="container">
 
-<!-- ================= BERANDA ================= -->
-
-<section id="home" class="hero">
-
-  <div class="mascot">
-    📚🧠✨
-  </div>
-
-  <h1>
-    TKA BAHASA INDONESIA
-  </h1>
-
-  <p class="subtitle">
-    Latih kemampuan literasi, pahami teks,
-    dan taklukkan soal-soal TKA! 🚀
-  </p>
-
-
-  <div class="features">
-
-    <div class="feature">
-      <span>📚</span>
-      Bank Soal
+    <div class="header">
+        <h1>📚 TKA Bahasa Indonesia</h1>
+        <p>Latihan soal untuk mengasah kemampuanmu!</p>
     </div>
 
-    <div class="feature">
-      <span>🧠</span>
-      Literasi
+    <div id="app">
+        <div class="loading">
+            ⏳ Memuat soal...
+        </div>
     </div>
-
-    <div class="feature">
-      <span>🎯</span>
-      Hitung Skor
-    </div>
-
-    <div class="feature">
-      <span>🏆</span>
-      Raih Prestasi
-    </div>
-
-  </div>
-
-
-  <button
-    class="start-btn"
-    onclick="startQuiz()">
-
-    🚀 MULAI LATIHAN
-
-  </button>
-
-
-  <div
-    id="loadingHome"
-    class="loading hidden">
-
-    <div class="spinner">
-      🔄
-    </div>
-
-    <p>
-      Memuat bank soal...
-    </p>
-
-  </div>
-
-
-  <div
-    id="errorHome"
-    class="error hidden">
-  </div>
-
-</section>
-
-
-
-<!-- ================= QUIZ ================= -->
-
-<section
-  id="quiz"
-  class="quiz hidden">
-
-
-  <div class="topbar">
-
-    <div
-      id="progressText"
-      class="progress-text">
-
-      Soal 1
-
-    </div>
-
-
-    <div class="progress">
-
-      <div
-        id="progressFill"
-        class="progress-fill">
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <div class="question-card">
-
-
-    <div
-      id="questionNumber"
-      class="question-number">
-
-      SOAL 1
-
-    </div>
-
-
-    <div
-      id="category"
-      class="category">
-
-      Bahasa Indonesia
-
-    </div>
-
-
-    <div
-      id="stimulus"
-      class="stimulus">
-    </div>
-
-
-    <div
-      id="questionText"
-      class="question-text">
-    </div>
-
-
-    <div
-      id="options"
-      class="options">
-    </div>
-
-
-    <div class="navigation">
-
-      <button
-        id="previousBtn"
-        class="nav-btn"
-        onclick="previousQuestion()">
-
-        ← Sebelumnya
-
-      </button>
-
-
-      <button
-        class="nav-btn"
-        onclick="nextQuestion()">
-
-        Selanjutnya →
-
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ================= HASIL ================= -->
-
-<section
-  id="result"
-  class="result hidden">
-
-
-  <div class="result-icon">
-    🏆
-  </div>
-
-
-  <h2>
-    LATIHAN SELESAI!
-  </h2>
-
-
-  <div
-    id="score"
-    class="score">
-
-    0
-
-  </div>
-
-
-  <div
-    id="resultMessage"
-    class="result-message">
-  </div>
-
-
-  <button
-    class="start-btn"
-    onclick="startQuiz()">
-
-    🔄 ULANGI LATIHAN
-
-  </button>
-
-</section>
-
 
 </div>
 
-
-
 <script>
 
-/*
-==================================================
-SUMBER BANK SOAL
-==================================================
-Google Sheets
-==================================================
-*/
+/* =========================================================
+   SUMBER DATA GOOGLE SHEETS
+   ========================================================= */
 
 const CSV_URL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzpZmOAkdsqMY4mncLx1OyIsq1QGYIKUg_Tr9jKT44QUnMh_BDKeS0f95AIOW-FSUS5OTINPtb8bpO/pub?output=csv";
 
 
+/* =========================================================
+   VARIABEL APLIKASI
+   ========================================================= */
+
 let questions = [];
-
 let currentQuestion = 0;
+let score = 0;
+let selectedAnswer = null;
 
-let userAnswers = [];
 
+/* =========================================================
+   FUNGSI MEMBERSIHKAN LABEL A/B/C/D/E
+   ========================================================= */
 
+function cleanOption(text) {
 
-/*
-==================================================
-MEMBACA CSV
-==================================================
-*/
+    if (!text) return "";
 
-async function loadQuestions(){
-
-  const response =
-    await fetch(
-      CSV_URL + "&cache=" + Date.now()
-    );
-
-
-  if(!response.ok){
-
-    throw new Error(
-      "Bank soal tidak dapat diakses."
-    );
-
-  }
-
-
-  const csv =
-    await response.text();
-
-
-  const rows =
-    parseCSV(csv);
-
-
-  if(rows.length < 2){
-
-    throw new Error(
-      "Bank soal masih kosong."
-    );
-
-  }
-
-
-  const headers =
-    rows[0].map(
-      h => h.trim().toLowerCase()
-    );
-
-
-  const data =
-    rows.slice(1);
-
-
-  questions =
-    data
-
-      .map(row => {
-
-        const item = {};
-
-
-        headers.forEach(
-          (header,index) => {
-
-            item[header] =
-              (row[index] || "").trim();
-
-          }
-        );
-
-
-        return item;
-
-      })
-
-
-      .filter(q =>
-
-        q.soal &&
-        q.kunci &&
-        q.a &&
-        q.b &&
-        q.c &&
-        q.d
-
-      );
-
-
-  if(questions.length === 0){
-
-    throw new Error(
-      "Tidak ditemukan soal yang lengkap. Periksa kolom Google Sheets."
-    );
-
-  }
-
-}
-
-
-
-/*
-==================================================
-CSV PARSER
-==================================================
-*/
-
-function parseCSV(text){
-
-  const rows = [];
-
-  let row = [];
-
-  let value = "";
-
-  let insideQuotes = false;
-
-
-  for(
-    let i=0;
-    i<text.length;
-    i++
-  ){
-
-    const char = text[i];
-
-    const next = text[i+1];
-
-
-    if(
-      char === '"' &&
-      insideQuotes &&
-      next === '"'
-    ){
-
-      value += '"';
-
-      i++;
-
-    }
-
-
-    else if(char === '"'){
-
-      insideQuotes =
-        !insideQuotes;
-
-    }
-
-
-    else if(
-      char === "," &&
-      !insideQuotes
-    ){
-
-      row.push(value);
-
-      value = "";
-
-    }
-
-
-    else if(
-      (char === "\n" ||
-       char === "\r") &&
-      !insideQuotes
-    ){
-
-      if(
-        char === "\r" &&
-        next === "\n"
-      ){
-
-        i++;
-
-      }
-
-
-      row.push(value);
-
-      value = "";
-
-
-      if(
-        row.length > 1 ||
-        row[0] !== ""
-      ){
-
-        rows.push(row);
-
-      }
-
-
-      row = [];
-
-    }
-
-
-    else{
-
-      value += char;
-
-    }
-
-  }
-
-
-  if(
-    value !== "" ||
-    row.length > 0
-  ){
-
-    row.push(value);
-
-    rows.push(row);
-
-  }
-
-
-  return rows;
-
-}
-
-
-
-/*
-==================================================
-ACAK ARRAY
-==================================================
-*/
-
-function shuffle(array){
-
-  const copy =
-    [...array];
-
-
-  for(
-    let i=copy.length-1;
-    i>0;
-    i--
-  ){
-
-    const j =
-      Math.floor(
-        Math.random() * (i+1)
-      );
-
-
-    [
-      copy[i],
-      copy[j]
-    ] =
-    [
-      copy[j],
-      copy[i]
-    ];
-
-  }
-
-
-  return copy;
-
-}
-
-
-
-/*
-==================================================
-MULAI LATIHAN
-==================================================
-*/
-
-async function startQuiz(){
-
-  const home =
-    document.getElementById("home");
-
-
-  const quiz =
-    document.getElementById("quiz");
-
-
-  const result =
-    document.getElementById("result");
-
-
-  const loading =
-    document.getElementById("loadingHome");
-
-
-  const error =
-    document.getElementById("errorHome");
-
-
-  error.classList.add("hidden");
-
-  result.classList.add("hidden");
-
-  loading.classList.remove("hidden");
-
-
-  try{
-
-    await loadQuestions();
-
+    text = String(text).trim();
 
     /*
-    Acak bank soal.
-    Maksimal 20 soal.
+       Menghapus:
+       A.
+       B.
+       C.
+       D.
+       E.
+       A)
+       B)
+       C)
+       D)
+       E)
     */
 
-    questions =
-      shuffle(questions)
-      .slice(0,20);
+    text = text.replace(
+        /^\s*[A-Ea-e]\s*[\.\)]\s*/,
+        ""
+    );
 
-
-    currentQuestion = 0;
-
-
-    userAnswers =
-      new Array(
-        questions.length
-      ).fill(null);
-
-
-    home.classList.add("hidden");
-
-    loading.classList.add("hidden");
-
-    quiz.classList.remove("hidden");
-
-
-    showQuestion();
-
-  }
-
-
-  catch(err){
-
-    loading.classList.add("hidden");
-
-
-    error.textContent =
-      "⚠️ Gagal memuat bank soal: " +
-      err.message +
-      " Pastikan Google Sheets sudah dipublikasikan sebagai CSV.";
-
-
-    error.classList.remove("hidden");
-
-  }
-
+    return text.trim();
 }
 
 
+/* =========================================================
+   CSV PARSER SEDERHANA
+   ========================================================= */
 
-/*
-==================================================
-MENAMPILKAN SOAL
-==================================================
-*/
+function parseCSV(text) {
 
-function showQuestion(){
+    const rows = [];
+    let row = [];
+    let cell = "";
+    let insideQuotes = false;
 
-  const q =
-    questions[currentQuestion];
+    for (let i = 0; i < text.length; i++) {
 
+        const char = text[i];
+        const next = text[i + 1];
 
-  document
-    .getElementById("questionNumber")
-    .textContent =
-      "SOAL " +
-      (currentQuestion + 1);
+        if (char === '"' && insideQuotes && next === '"') {
+            cell += '"';
+            i++;
+        }
 
+        else if (char === '"') {
+            insideQuotes = !insideQuotes;
+        }
 
-  document
-    .getElementById("progressText")
-    .textContent =
-      "Soal " +
-      (currentQuestion + 1) +
-      " dari " +
-      questions.length;
+        else if (char === ',' && !insideQuotes) {
+            row.push(cell);
+            cell = "";
+        }
 
+        else if (
+            (char === '\n' || char === '\r') &&
+            !insideQuotes
+        ) {
 
-  document
-    .getElementById("progressFill")
-    .style.width =
-      (
-        (currentQuestion + 1) /
-        questions.length *
-        100
-      ) + "%";
+            if (char === '\r' && next === '\n') {
+                i++;
+            }
 
+            row.push(cell);
+            rows.push(row);
 
-  document
-    .getElementById("category")
-    .textContent =
-      q.kategori ||
-      "Bahasa Indonesia";
+            row = [];
+            cell = "";
+        }
 
-
-  document
-    .getElementById("stimulus")
-    .textContent =
-      q.stimulus ||
-      "Tidak ada stimulus.";
-
-
-  document
-    .getElementById("questionText")
-    .textContent =
-      q.soal;
-
-
-
-  const optionsContainer =
-    document.getElementById(
-      "options"
-    );
-
-
-  optionsContainer.innerHTML = "";
-
-
-
-  /*
-  ================================================
-  PILIHAN JAWABAN
-  ================================================
-
-  Huruf A/B/C/D/E tetap disimpan
-  untuk penilaian.
-
-  Tetapi TIDAK ditampilkan kepada siswa.
-  */
-
-  const options = [
-
-    {
-      letter:"A",
-      text:q.a
-    },
-
-    {
-      letter:"B",
-      text:q.b
-    },
-
-    {
-      letter:"C",
-      text:q.c
-    },
-
-    {
-      letter:"D",
-      text:q.d
-    },
-
-    {
-      letter:"E",
-      text:q.e
+        else {
+            cell += char;
+        }
     }
 
-  ].filter(
-    option => option.text
-  );
+    if (cell !== "" || row.length > 0) {
+        row.push(cell);
+        rows.push(row);
+    }
+
+    return rows;
+}
 
 
+/* =========================================================
+   MENGACAK ARRAY
+   ========================================================= */
 
-  /*
-  Acak pilihan jawaban.
-  */
+function shuffle(array) {
 
-  const shuffledOptions =
-    shuffle(options);
+    const arr = [...array];
 
+    for (let i = arr.length - 1; i > 0; i--) {
 
+        const j = Math.floor(Math.random() * (i + 1));
 
-  shuffledOptions.forEach(
-    option => {
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
 
-      const button =
-        document.createElement(
-          "button"
-        );
-
-
-      button.className =
-        "option";
+    return arr;
+}
 
 
-      /*
-      HANYA TEKS JAWABAN
-      Huruf A/B/C/D/E tidak ditampilkan.
-      */
+/* =========================================================
+   NORMALISASI NAMA KOLOM
+   ========================================================= */
 
-      button.textContent =
-        option.text;
+function normalize(text) {
 
-
-
-      /*
-      Tandai jawaban
-      yang sedang dipilih.
-      */
-
-      if(
-        userAnswers[currentQuestion] ===
-        option.letter
-      ){
-
-        button.classList.add(
-          "selected"
-        );
-
-      }
+    return String(text || "")
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " ");
+}
 
 
+/* =========================================================
+   MEMBACA DATA GOOGLE SHEETS
+   ========================================================= */
 
-      /*
-      Simpan huruf asli
-      di belakang layar.
-      */
+async function loadQuestions() {
 
-      button.onclick =
-        function(){
+    try {
 
-          userAnswers[currentQuestion] =
-            option.letter;
+        const response = await fetch(CSV_URL + "&t=" + Date.now());
 
+        if (!response.ok) {
+            throw new Error("Gagal mengambil data.");
+        }
 
-          showQuestion();
+        const csvText = await response.text();
 
+        const rows = parseCSV(csvText);
+
+        if (rows.length < 2) {
+            throw new Error("Data soal tidak ditemukan.");
+        }
+
+        const headers = rows[0].map(normalize);
+
+        console.log("Kolom Google Sheets:", headers);
+
+        /*
+           Mencari kolom berdasarkan beberapa kemungkinan nama.
+        */
+
+        const findColumn = (...names) => {
+
+            for (const name of names) {
+
+                const index = headers.indexOf(normalize(name));
+
+                if (index !== -1) {
+                    return index;
+                }
+            }
+
+            return -1;
         };
 
 
+        const questionIndex = findColumn(
+            "soal",
+            "pertanyaan",
+            "question"
+        );
 
-      optionsContainer.appendChild(
-        button
-      );
+        const stimulusIndex = findColumn(
+            "stimulus",
+            "teks",
+            "bacaan",
+            "wacana",
+            "paragraf"
+        );
+
+        const optionAIndex = findColumn(
+            "a",
+            "opsi a",
+            "jawaban a"
+        );
+
+        const optionBIndex = findColumn(
+            "b",
+            "opsi b",
+            "jawaban b"
+        );
+
+        const optionCIndex = findColumn(
+            "c",
+            "opsi c",
+            "jawaban c"
+        );
+
+        const optionDIndex = findColumn(
+            "d",
+            "opsi d",
+            "jawaban d"
+        );
+
+        const optionEIndex = findColumn(
+            "e",
+            "opsi e",
+            "jawaban e"
+        );
+
+        const answerIndex = findColumn(
+            "kunci",
+            "jawaban benar",
+            "jawaban",
+            "answer",
+            "correct answer"
+        );
+
+
+        if (questionIndex === -1) {
+
+            throw new Error(
+                "Kolom soal tidak ditemukan. Pastikan ada kolom bernama 'Soal'."
+            );
+        }
+
+
+        if (
+            optionAIndex === -1 ||
+            optionBIndex === -1 ||
+            optionCIndex === -1 ||
+            optionDIndex === -1
+        ) {
+
+            throw new Error(
+                "Kolom pilihan A-D tidak ditemukan."
+            );
+        }
+
+
+        questions = [];
+
+
+        for (let i = 1; i < rows.length; i++) {
+
+            const row = rows[i];
+
+            const question = String(
+                row[questionIndex] || ""
+            ).trim();
+
+            if (!question) continue;
+
+
+            const options = [
+
+                {
+                    text: cleanOption(row[optionAIndex]),
+                    original: "A"
+                },
+
+                {
+                    text: cleanOption(row[optionBIndex]),
+                    original: "B"
+                },
+
+                {
+                    text: cleanOption(row[optionCIndex]),
+                    original: "C"
+                },
+
+                {
+                    text: cleanOption(row[optionDIndex]),
+                    original: "D"
+                }
+            ];
+
+
+            if (optionEIndex !== -1) {
+
+                const eText = cleanOption(row[optionEIndex]);
+
+                if (eText) {
+
+                    options.push({
+                        text: eText,
+                        original: "E"
+                    });
+                }
+            }
+
+
+            /*
+               Buang pilihan kosong.
+            */
+
+            const validOptions = options.filter(
+                option => option.text
+            );
+
+
+            /*
+               Kunci jawaban.
+            */
+
+            let correctAnswer = "";
+
+            if (answerIndex !== -1) {
+
+                correctAnswer = String(
+                    row[answerIndex] || ""
+                ).trim();
+
+                /*
+                   Jika kunci berisi A/B/C/D/E,
+                   ubah menjadi isi jawaban.
+                */
+
+                const letterMatch =
+                    correctAnswer.match(/^[A-Ea-e]$/);
+
+                if (letterMatch) {
+
+                    const found = validOptions.find(
+                        option =>
+                            option.original.toUpperCase() ===
+                            correctAnswer.toUpperCase()
+                    );
+
+                    if (found) {
+                        correctAnswer = found.text;
+                    }
+                }
+
+                else {
+
+                    correctAnswer =
+                        cleanOption(correctAnswer);
+                }
+            }
+
+
+            /*
+               Simpan soal.
+            */
+
+            questions.push({
+
+                stimulus:
+                    stimulusIndex !== -1
+                    ? String(row[stimulusIndex] || "").trim()
+                    : "",
+
+                question: question,
+
+                options: validOptions,
+
+                correctAnswer: correctAnswer
+
+            });
+        }
+
+
+        if (questions.length === 0) {
+
+            throw new Error(
+                "Tidak ada soal yang berhasil dibaca."
+            );
+        }
+
+
+        /*
+           Acak urutan soal.
+        */
+
+        questions = shuffle(questions);
+
+
+        showQuestion();
 
     }
-  );
 
+    catch (error) {
 
+        console.error(error);
 
-  /*
-  Tombol sebelumnya
-  */
+        document.getElementById("app").innerHTML = `
 
-  document
-    .getElementById("previousBtn")
-    .style.visibility =
+            <div class="error">
 
-      currentQuestion === 0
+                <h2>😕 Oops!</h2>
 
-      ? "hidden"
+                <p>
+                    Soal belum dapat dimuat.
+                </p>
 
-      : "visible";
+                <p style="color:#777">
+                    ${error.message}
+                </p>
 
+                <button class="restart"
+                    onclick="location.reload()">
+                    🔄 Coba Lagi
+                </button>
+
+            </div>
+
+        `;
+    }
 }
 
 
+/* =========================================================
+   MENAMPILKAN SOAL
+   ========================================================= */
 
-/*
-==================================================
-SOAL BERIKUTNYA
-==================================================
-*/
+function showQuestion() {
 
-function nextQuestion(){
+    selectedAnswer = null;
 
-  if(
-    userAnswers[currentQuestion] === null
-  ){
+    const q = questions[currentQuestion];
 
-    alert(
-      "Pilih salah satu jawaban terlebih dahulu! 😊"
-    );
+    /*
+       Acak pilihan untuk soal ini.
+    */
 
-    return;
-
-  }
+    const shuffledOptions = shuffle(q.options);
 
 
-  if(
-    currentQuestion <
-    questions.length - 1
-  ){
+    /*
+       Simpan pilihan hasil acak agar
+       tombol dapat memeriksa jawaban.
+    */
+
+    q.displayOptions = shuffledOptions;
+
+
+    const progress =
+        ((currentQuestion) / questions.length) * 100;
+
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="progress">
+
+            <div class="progress-bar"
+                style="width:${progress}%">
+            </div>
+
+        </div>
+
+
+        <div class="question-label">
+
+            Soal ${currentQuestion + 1}
+            dari ${questions.length}
+
+        </div>
+
+
+        ${
+            q.stimulus
+            ?
+            `
+            <div class="stimulus">
+
+                ${q.stimulus}
+
+            </div>
+            `
+            :
+            ""
+        }
+
+
+        <div class="question">
+
+            ${q.question}
+
+        </div>
+
+
+        <div class="options">
+
+            ${q.displayOptions.map((option, index) => `
+
+                <button
+                    class="option"
+                    id="option-${index}"
+                    onclick="selectAnswer(${index})">
+
+                    ${option.text}
+
+                </button>
+
+            `).join("")}
+
+        </div>
+
+
+        <div class="bottom">
+
+            <span id="feedback"></span>
+
+            <button
+                class="next"
+                id="nextButton"
+                onclick="nextQuestion()"
+                disabled>
+
+                ${
+                    currentQuestion === questions.length - 1
+                    ? "Selesai ✓"
+                    : "Selanjutnya →"
+                }
+
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   MEMILIH JAWABAN
+   ========================================================= */
+
+function selectAnswer(index) {
+
+    if (selectedAnswer !== null) return;
+
+    selectedAnswer = index;
+
+    const q = questions[currentQuestion];
+
+    const selected = q.displayOptions[index];
+
+    const buttons =
+        document.querySelectorAll(".option");
+
+
+    /*
+       Tandai pilihan yang dipilih.
+    */
+
+    buttons[index].classList.add("selected");
+
+
+    /*
+       Tentukan benar/salah.
+    */
+
+    const isCorrect =
+        normalize(selected.text) ===
+        normalize(q.correctAnswer);
+
+
+    if (isCorrect) {
+
+        buttons[index].classList.remove("selected");
+
+        buttons[index].classList.add("correct");
+
+        score++;
+
+        document.getElementById("feedback").innerHTML =
+            "🎉 Benar!";
+
+    }
+
+    else {
+
+        buttons[index].classList.remove("selected");
+
+        buttons[index].classList.add("wrong");
+
+        document.getElementById("feedback").innerHTML =
+            "💡 Belum tepat.";
+
+        /*
+           Tampilkan jawaban benar.
+        */
+
+        const correctIndex =
+            q.displayOptions.findIndex(
+                option =>
+                    normalize(option.text) ===
+                    normalize(q.correctAnswer)
+            );
+
+
+        if (correctIndex !== -1) {
+
+            buttons[correctIndex]
+                .classList.add("correct");
+        }
+    }
+
+
+    document.getElementById("nextButton")
+        .disabled = false;
+}
+
+
+/* =========================================================
+   SOAL BERIKUTNYA
+   ========================================================= */
+
+function nextQuestion() {
+
+    if (selectedAnswer === null) return;
+
 
     currentQuestion++;
 
-    showQuestion();
 
-  }
+    if (currentQuestion >= questions.length) {
 
-  else{
+        showResult();
 
-    finishQuiz();
-
-  }
-
-}
-
-
-
-/*
-==================================================
-SOAL SEBELUMNYA
-==================================================
-*/
-
-function previousQuestion(){
-
-  if(currentQuestion > 0){
-
-    currentQuestion--;
-
-    showQuestion();
-
-  }
-
-}
-
-
-
-/*
-==================================================
-SELESAI
-==================================================
-*/
-
-function finishQuiz(){
-
-  let correct = 0;
-
-
-  questions.forEach(
-    (q,index) => {
-
-      const key =
-        q.kunci
-          .trim()
-          .toUpperCase();
-
-
-      /*
-      Jawaban pengguna tetap dibandingkan
-      dengan huruf kunci asli.
-      */
-
-      if(
-        userAnswers[index] === key
-      ){
-
-        correct++;
-
-      }
-
+        return;
     }
-  );
 
 
-  const score =
-    Math.round(
-      (
-        correct /
-        questions.length
-      ) * 100
-    );
-
-
-
-  document
-    .getElementById("quiz")
-    .classList.add("hidden");
-
-
-  document
-    .getElementById("result")
-    .classList.remove("hidden");
-
-
-  document
-    .getElementById("score")
-    .textContent =
-      score;
-
-
-
-  let message;
-
-
-  if(score >= 90){
-
-    message =
-      "🌟 Luar biasa! Kemampuan Bahasa Indonesiamu keren banget!";
-
-  }
-
-  else if(score >= 75){
-
-    message =
-      "😎 Bagus! Tinggal sedikit lagi menuju nilai sempurna!";
-
-  }
-
-  else if(score >= 60){
-
-    message =
-      "💪 Lumayan! Terus berlatih agar semakin jago!";
-
-  }
-
-  else{
-
-    message =
-      "📚 Jangan menyerah! Yuk belajar dan coba lagi!";
-
-  }
-
-
-
-  document
-    .getElementById("resultMessage")
-    .textContent =
-
-      correct +
-      " dari " +
-      questions.length +
-      " jawaban benar. " +
-      message;
-
+    showQuestion();
 }
+
+
+/* =========================================================
+   HASIL AKHIR
+   ========================================================= */
+
+function showResult() {
+
+    const percentage =
+        Math.round(
+            (score / questions.length) * 100
+        );
+
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="result">
+
+            <h2>🎊 Latihan Selesai!</h2>
+
+            <p>Kamu sudah menyelesaikan semua soal.</p>
+
+            <div class="score">
+
+                ${score} / ${questions.length}
+
+            </div>
+
+            <p>
+                Nilai: <strong>${percentage}</strong>
+            </p>
+
+            <br>
+
+            <button
+                class="restart"
+                onclick="restartQuiz()">
+
+                🔄 Kerjakan Lagi
+
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   ULANGI LATIHAN
+   ========================================================= */
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+    score = 0;
+    selectedAnswer = null;
+
+    questions = shuffle(questions);
+
+    showQuestion();
+}
+
+
+/* =========================================================
+   MULAI APLIKASI
+   ========================================================= */
+
+loadQuestions();
 
 </script>
 
