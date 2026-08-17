@@ -1,551 +1,950 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TKA Bahasa Indonesia</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<title>TKA Bahasa Indonesia</title>
 
-    body {
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #fff4c2, #dff7ff, #f7ddff);
-      color: #25304a;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    .app {
-      max-width: 1000px;
-      margin: auto;
-      padding: 30px 20px;
-    }
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,#fff4c2,#dff7ff,#f7ddff);
+  color:#26324a;
+}
 
-    .hero {
-      background: rgba(255,255,255,0.9);
-      border-radius: 30px;
-      padding: 45px 30px;
-      text-align: center;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-    }
+.app{
+  max-width:1000px;
+  margin:auto;
+  padding:25px 18px;
+}
 
-    .mascot {
-      font-size: 80px;
-      margin-bottom: 15px;
-    }
+.hero,
+.question-card,
+.result{
+  background:rgba(255,255,255,.94);
+  border-radius:30px;
+  box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
 
-    h1 {
-      font-size: clamp(2.2rem, 6vw, 4.5rem);
-      font-weight: 900;
-      color: #ff5c7a;
-      margin-bottom: 10px;
-    }
+.hero{
+  text-align:center;
+  padding:45px 25px;
+}
 
-    .subtitle {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
-    }
+.mascot{
+  font-size:70px;
+}
 
-    .features {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin: 30px 0;
-    }
+h1{
+  font-size:clamp(2rem,6vw,4rem);
+  color:#ff5c7a;
+  font-weight:900;
+  margin:10px 0;
+}
 
-    .feature {
-      background: #fff;
-      border-radius: 20px;
-      padding: 20px 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-      font-weight: bold;
-    }
+.subtitle{
+  font-size:1.15rem;
+  line-height:1.6;
+  margin-bottom:30px;
+}
 
-    .feature span {
-      display: block;
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
+.features{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin:25px 0;
+}
 
-    .start-btn {
-      border: none;
-      background: linear-gradient(135deg, #ff5c7a, #ff9f43);
-      color: white;
-      padding: 17px 40px;
-      border-radius: 50px;
-      font-size: 1.15rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255,92,122,0.3);
-      transition: 0.2s;
-    }
+.feature{
+  padding:20px 10px;
+  background:white;
+  border-radius:20px;
+  box-shadow:0 7px 20px rgba(0,0,0,.06);
+  font-weight:bold;
+}
 
-    .start-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-    }
+.feature span{
+  display:block;
+  font-size:32px;
+  margin-bottom:8px;
+}
 
-    .hidden {
-      display: none;
-    }
+.start-btn{
+  border:0;
+  background:linear-gradient(135deg,#ff5c7a,#ff9f43);
+  color:white;
+  padding:16px 35px;
+  border-radius:50px;
+  font-size:1.1rem;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
+}
 
-    .quiz {
-      margin-top: 20px;
-    }
+.start-btn:hover{
+  transform:translateY(-3px) scale(1.03);
+}
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      gap: 15px;
-    }
+.hidden{
+  display:none!important;
+}
 
-    .progress-box {
-      flex: 1;
-      background: white;
-      border-radius: 20px;
-      padding: 12px;
-    }
+.quiz{
+  margin-top:10px;
+}
 
-    .progress {
-      height: 12px;
-      background: #e8e8e8;
-      border-radius: 20px;
-      overflow: hidden;
-    }
+.topbar{
+  background:white;
+  border-radius:20px;
+  padding:15px;
+  margin-bottom:15px;
+}
 
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #ff5c7a, #ffca3a);
-      transition: width 0.3s;
-    }
+.progress-text{
+  font-weight:bold;
+  margin-bottom:10px;
+}
 
-    .question-card {
-      background: white;
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-    }
+.progress{
+  height:12px;
+  background:#e8e8e8;
+  border-radius:20px;
+  overflow:hidden;
+}
 
-    .question-number {
-      color: #ff5c7a;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
+.progress-fill{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#ff5c7a,#ffca3a);
+  transition:.3s;
+}
 
-    .stimulus {
-      background: #f5f7ff;
-      border-left: 5px solid #7c83fd;
-      padding: 20px;
-      border-radius: 15px;
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
+.question-card{
+  padding:30px;
+}
 
-    .question-text {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
+.question-number{
+  color:#ff5c7a;
+  font-weight:bold;
+  margin-bottom:15px;
+}
 
-    .options {
-      display: grid;
-      gap: 12px;
-    }
+.category{
+  display:inline-block;
+  background:#eef0ff;
+  color:#6269c9;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:.85rem;
+  font-weight:bold;
+  margin-bottom:15px;
+}
 
-    .option {
-      border: 3px solid #e8eaf2;
-      background: white;
-      padding: 16px;
-      border-radius: 17px;
-      text-align: left;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: 0.2s;
-    }
+.stimulus{
+  background:#f5f7ff;
+  border-left:5px solid #7c83fd;
+  padding:20px;
+  border-radius:15px;
+  line-height:1.75;
+  margin-bottom:20px;
+  white-space:pre-line;
+}
 
-    .option:hover {
-      border-color: #ff9f43;
-      transform: translateX(4px);
-    }
+.question-text{
+  font-size:1.2rem;
+  line-height:1.6;
+  font-weight:bold;
+  margin-bottom:20px;
+}
 
-    .option.selected {
-      border-color: #ff5c7a;
-      background: #fff0f3;
-    }
+.options{
+  display:grid;
+  gap:12px;
+}
 
-    .navigation {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      gap: 10px;
-    }
+.option{
+  border:3px solid #e8eaf2;
+  background:white;
+  padding:16px;
+  border-radius:17px;
+  text-align:left;
+  cursor:pointer;
+  font-size:1rem;
+  transition:.2s;
+}
 
-    .nav-btn {
-      border: none;
-      padding: 13px 25px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      background: #25304a;
-      color: white;
-    }
+.option:hover{
+  border-color:#ff9f43;
+  transform:translateX(4px);
+}
 
-    .result {
-      background: white;
-      border-radius: 30px;
-      padding: 45px 30px;
-      text-align: center;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-    }
+.option.selected{
+  border-color:#ff5c7a;
+  background:#fff0f3;
+}
 
-    .score {
-      font-size: 5rem;
-      font-weight: 900;
-      color: #ff5c7a;
-      margin: 20px 0;
-    }
+.navigation{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:20px;
+}
 
-    .result-message {
-      font-size: 1.3rem;
-      margin-bottom: 25px;
-    }
+.nav-btn{
+  border:0;
+  padding:13px 25px;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:bold;
+  background:#26324a;
+  color:white;
+}
 
-    @media (max-width: 700px) {
-      .features {
-        grid-template-columns: repeat(2, 1fr);
-      }
+.result{
+  text-align:center;
+  padding:45px 25px;
+}
 
-      .question-card {
-        padding: 20px;
-      }
+.result-icon{
+  font-size:70px;
+}
 
-      .topbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
-  </style>
+.score{
+  font-size:5rem;
+  font-weight:900;
+  color:#ff5c7a;
+  margin:20px 0;
+}
+
+.result-message{
+  font-size:1.2rem;
+  margin-bottom:25px;
+}
+
+.loading{
+  text-align:center;
+  padding:40px;
+}
+
+.spinner{
+  font-size:50px;
+  animation:spin 1s infinite linear;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.error{
+  background:#fff0f0;
+  color:#b42318;
+  padding:20px;
+  border-radius:15px;
+  margin-top:20px;
+  line-height:1.6;
+}
+
+@media(max-width:700px){
+
+  .features{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .question-card{
+    padding:20px;
+  }
+
+  .navigation{
+    flex-direction:column;
+  }
+
+  .nav-btn{
+    width:100%;
+  }
+
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- BERANDA -->
-  <section id="home" class="hero">
-    <div class="mascot">📚🧠✨</div>
+<!-- ================= BERANDA ================= -->
 
-    <h1>TKA BAHASA INDONESIA</h1>
+<section id="home" class="hero">
 
-    <p class="subtitle">
-      Yuk, uji kemampuanmu dan taklukkan soal-soal Bahasa Indonesia! 🚀
-    </p>
+  <div class="mascot">📚🧠✨</div>
 
-    <div class="features">
-      <div class="feature">
-        <span>📚</span>
-        Latihan Soal
-      </div>
+  <h1>TKA BAHASA INDONESIA</h1>
 
-      <div class="feature">
-        <span>🧠</span>
-        Uji Literasi
-      </div>
+  <p class="subtitle">
+    Latih kemampuan literasi, pahami teks,
+    dan taklukkan soal-soal TKA! 🚀
+  </p>
 
-      <div class="feature">
-        <span>🎯</span>
-        Hitung Skor
-      </div>
+  <div class="features">
 
-      <div class="feature">
-        <span>🏆</span>
-        Raih Nilai Terbaik
-      </div>
+    <div class="feature">
+      <span>📚</span>
+      Bank Soal
     </div>
 
-    <button class="start-btn" onclick="startQuiz()">
-      🚀 MULAI LATIHAN
-    </button>
-  </section>
-
-
-  <!-- QUIZ -->
-  <section id="quiz" class="quiz hidden">
-
-    <div class="topbar">
-      <div class="progress-box">
-        <strong id="progressText">Soal 1 dari 5</strong>
-        <div class="progress">
-          <div id="progressFill" class="progress-fill"></div>
-        </div>
-      </div>
+    <div class="feature">
+      <span>🧠</span>
+      Literasi
     </div>
 
-    <div class="question-card">
+    <div class="feature">
+      <span>🎯</span>
+      Hitung Skor
+    </div>
 
-      <div id="questionNumber" class="question-number">
-        SOAL 1
-      </div>
+    <div class="feature">
+      <span>🏆</span>
+      Raih Prestasi
+    </div>
 
-      <div id="stimulus" class="stimulus"></div>
+  </div>
 
-      <div id="questionText" class="question-text"></div>
+  <button class="start-btn" onclick="startQuiz()">
+    🚀 MULAI LATIHAN
+  </button>
 
-      <div id="options" class="options"></div>
+  <div id="loadingHome" class="loading hidden">
+    <div class="spinner">🔄</div>
+    <p>Memuat bank soal...</p>
+  </div>
 
-      <div class="navigation">
-        <button class="nav-btn" onclick="previousQuestion()">
-          ← Sebelumnya
-        </button>
+  <div id="errorHome" class="error hidden"></div>
 
-        <button class="nav-btn" onclick="nextQuestion()">
-          Selanjutnya →
-        </button>
-      </div>
+</section>
+
+
+<!-- ================= QUIZ ================= -->
+
+<section id="quiz" class="quiz hidden">
+
+  <div class="topbar">
+
+    <div id="progressText" class="progress-text">
+      Soal 1
+    </div>
+
+    <div class="progress">
+      <div id="progressFill" class="progress-fill"></div>
+    </div>
+
+  </div>
+
+
+  <div class="question-card">
+
+    <div id="questionNumber" class="question-number">
+      SOAL 1
+    </div>
+
+    <div id="category" class="category">
+      Bahasa Indonesia
+    </div>
+
+    <div id="stimulus" class="stimulus"></div>
+
+    <div id="questionText" class="question-text"></div>
+
+    <div id="options" class="options"></div>
+
+    <div class="navigation">
+
+      <button
+        id="previousBtn"
+        class="nav-btn"
+        onclick="previousQuestion()">
+        ← Sebelumnya
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="nextQuestion()">
+        Selanjutnya →
+      </button>
 
     </div>
-  </section>
+
+  </div>
+
+</section>
 
 
-  <!-- HASIL -->
-  <section id="result" class="result hidden">
+<!-- ================= HASIL ================= -->
 
-    <div style="font-size:70px;">🏆</div>
+<section id="result" class="result hidden">
 
-    <h2>LATIHAN SELESAI!</h2>
+  <div class="result-icon">🏆</div>
 
-    <div id="score" class="score">0</div>
+  <h2>LATIHAN SELESAI!</h2>
 
-    <div id="resultMessage" class="result-message"></div>
+  <div id="score" class="score">0</div>
 
-    <button class="start-btn" onclick="startQuiz()">
-      🔄 ULANGI LATIHAN
-    </button>
+  <div id="resultMessage" class="result-message"></div>
 
-  </section>
+  <button class="start-btn" onclick="startQuiz()">
+    🔄 ULANGI LATIHAN
+  </button>
+
+</section>
 
 </div>
 
 
 <script>
 
-const questions = [
-  {
-    stimulus:
-      "Membaca merupakan salah satu kegiatan yang dapat memperluas wawasan. Dengan membaca, seseorang dapat memperoleh berbagai informasi, memahami sudut pandang baru, dan meningkatkan kemampuan berpikir kritis. Oleh karena itu, kebiasaan membaca perlu ditanamkan sejak dini.",
+/*
+==================================================
+SUMBER BANK SOAL
+==================================================
+Google Sheets yang Anda berikan.
+==================================================
+*/
 
-    question:
-      "Apa gagasan utama paragraf tersebut?",
+const CSV_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vRzpZmOAkdsqMY4mncLx1OyIsq1QGYIKUg_Tr9jKT44QUnMh_BDKeS0f95AIOW-FSUS5OTINPtb8bpO/pub?output=csv";
 
-    options: [
-      "Membaca dapat memperluas wawasan seseorang.",
-      "Membaca harus dilakukan sejak usia dewasa.",
-      "Kemampuan berpikir kritis hanya diperoleh melalui membaca.",
-      "Informasi hanya dapat diperoleh melalui buku.",
-      "Membaca merupakan kegiatan yang sulit dilakukan."
-    ],
 
-    answer: 0
-  },
-
-  {
-    stimulus:
-      "Penggunaan transportasi umum dapat memberikan berbagai manfaat bagi masyarakat. Selain mengurangi jumlah kendaraan pribadi di jalan raya, transportasi umum juga dapat membantu mengurangi kemacetan dan polusi udara.",
-
-    question:
-      "Informasi yang sesuai dengan paragraf tersebut adalah ...",
-
-    options: [
-      "Transportasi umum selalu menyebabkan kemacetan.",
-      "Transportasi umum dapat membantu mengurangi polusi.",
-      "Kendaraan pribadi tidak menghasilkan polusi.",
-      "Masyarakat dilarang menggunakan kendaraan pribadi.",
-      "Transportasi umum hanya digunakan di kota besar."
-    ],
-
-    answer: 1
-  },
-
-  {
-    stimulus:
-      "Sekolah yang memiliki lingkungan bersih dapat menciptakan suasana belajar yang lebih nyaman. Kebersihan lingkungan sekolah juga dapat membantu mencegah berbagai penyakit. Oleh sebab itu, seluruh warga sekolah perlu menjaga kebersihan lingkungan bersama-sama.",
-
-    question:
-      "Simpulan yang tepat berdasarkan paragraf tersebut adalah ...",
-
-    options: [
-      "Kebersihan sekolah hanya menjadi tanggung jawab petugas kebersihan.",
-      "Lingkungan sekolah tidak berhubungan dengan kegiatan belajar.",
-      "Kebersihan sekolah penting dan perlu dijaga bersama.",
-      "Penyakit hanya dapat dicegah dengan membersihkan sekolah.",
-      "Siswa tidak perlu ikut menjaga kebersihan sekolah."
-    ],
-
-    answer: 2
-  },
-
-  {
-    stimulus:
-      "Kemajuan teknologi memberikan banyak kemudahan dalam kehidupan sehari-hari. Namun, penggunaan teknologi yang tidak bijaksana dapat menimbulkan berbagai masalah. Karena itu, masyarakat perlu menggunakan teknologi secara bertanggung jawab.",
-
-    question:
-      "Sikap yang paling tepat berdasarkan isi paragraf adalah ...",
-
-    options: [
-      "Menghindari semua bentuk teknologi.",
-      "Menggunakan teknologi tanpa batas.",
-      "Menggunakan teknologi secara bertanggung jawab.",
-      "Menolak perkembangan teknologi.",
-      "Menggunakan teknologi hanya untuk hiburan."
-    ],
-
-    answer: 2
-  },
-
-  {
-    stimulus:
-      "Berolahraga secara teratur dapat membantu menjaga kebugaran tubuh. Aktivitas fisik juga dapat meningkatkan stamina dan membuat tubuh menjadi lebih sehat. Kebiasaan tersebut sebaiknya dilakukan secara rutin sesuai kemampuan masing-masing.",
-
-    question:
-      "Apa tujuan penulis menyampaikan paragraf tersebut?",
-
-    options: [
-      "Mengajak pembaca untuk berolahraga secara teratur.",
-      "Menjelaskan sejarah olahraga.",
-      "Membandingkan berbagai jenis olahraga.",
-      "Melarang aktivitas fisik.",
-      "Menjelaskan cara membuat alat olahraga."
-    ],
-
-    answer: 0
-  }
-];
+let questions = [];
 
 let currentQuestion = 0;
+
 let userAnswers = [];
 
-function startQuiz() {
-  currentQuestion = 0;
-  userAnswers = new Array(questions.length).fill(null);
 
-  document.getElementById("home").classList.add("hidden");
-  document.getElementById("result").classList.add("hidden");
-  document.getElementById("quiz").classList.remove("hidden");
+/*
+==================================================
+MEMBACA CSV
+==================================================
+*/
 
-  showQuestion();
+async function loadQuestions(){
+
+  const response = await fetch(CSV_URL + "&cache=" + Date.now());
+
+  if(!response.ok){
+    throw new Error("Bank soal tidak dapat diakses.");
+  }
+
+  const csv = await response.text();
+
+  const rows = parseCSV(csv);
+
+  if(rows.length < 2){
+    throw new Error("Bank soal masih kosong.");
+  }
+
+  const headers = rows[0].map(h =>
+    h.trim().toLowerCase()
+  );
+
+  const data = rows.slice(1);
+
+  questions = data
+    .map(row => {
+
+      const item = {};
+
+      headers.forEach((header,index)=>{
+        item[header] = (row[index] || "").trim();
+      });
+
+      return item;
+
+    })
+    .filter(q =>
+      q.soal &&
+      q.kunci &&
+      q.a &&
+      q.b &&
+      q.c &&
+      q.d
+    );
+
+  if(questions.length === 0){
+    throw new Error(
+      "Tidak ditemukan soal yang lengkap. Periksa kolom Google Sheets."
+    );
+  }
+
 }
 
-function showQuestion() {
 
-  const q = questions[currentQuestion];
+/*
+==================================================
+CSV PARSER
+==================================================
+*/
 
-  document.getElementById("questionNumber").textContent =
-    "SOAL " + (currentQuestion + 1);
+function parseCSV(text){
 
-  document.getElementById("progressText").textContent =
-    "Soal " + (currentQuestion + 1) +
-    " dari " + questions.length;
+  const rows = [];
 
-  document.getElementById("progressFill").style.width =
-    ((currentQuestion + 1) / questions.length * 100) + "%";
+  let row = [];
 
-  document.getElementById("stimulus").textContent = q.stimulus;
+  let value = "";
 
-  document.getElementById("questionText").textContent = q.question;
+  let insideQuotes = false;
 
-  const optionsContainer = document.getElementById("options");
+
+  for(let i=0;i<text.length;i++){
+
+    const char = text[i];
+
+    const next = text[i+1];
+
+
+    if(char === '"' && insideQuotes && next === '"'){
+
+      value += '"';
+
+      i++;
+
+    }
+
+    else if(char === '"'){
+
+      insideQuotes = !insideQuotes;
+
+    }
+
+    else if(char === "," && !insideQuotes){
+
+      row.push(value);
+
+      value = "";
+
+    }
+
+    else if((char === "\n" || char === "\r") && !insideQuotes){
+
+      if(char === "\r" && next === "\n"){
+        i++;
+      }
+
+      row.push(value);
+
+      value = "";
+
+      if(row.length > 1 || row[0] !== ""){
+        rows.push(row);
+      }
+
+      row = [];
+
+    }
+
+    else{
+
+      value += char;
+
+    }
+
+  }
+
+
+  if(value !== "" || row.length > 0){
+
+    row.push(value);
+
+    rows.push(row);
+
+  }
+
+
+  return rows;
+}
+
+
+/*
+==================================================
+ACAK ARRAY
+==================================================
+*/
+
+function shuffle(array){
+
+  const copy = [...array];
+
+  for(let i=copy.length-1;i>0;i--){
+
+    const j =
+      Math.floor(Math.random()*(i+1));
+
+    [copy[i],copy[j]] =
+      [copy[j],copy[i]];
+
+  }
+
+  return copy;
+}
+
+
+/*
+==================================================
+MULAI LATIHAN
+==================================================
+*/
+
+async function startQuiz(){
+
+  const home =
+    document.getElementById("home");
+
+  const quiz =
+    document.getElementById("quiz");
+
+  const result =
+    document.getElementById("result");
+
+  const loading =
+    document.getElementById("loadingHome");
+
+  const error =
+    document.getElementById("errorHome");
+
+
+  error.classList.add("hidden");
+
+  result.classList.add("hidden");
+
+  loading.classList.remove("hidden");
+
+
+  try{
+
+    await loadQuestions();
+
+    /*
+    Mengacak seluruh bank soal.
+    Untuk sekarang kita mengambil maksimal 20 soal.
+    */
+
+    questions =
+      shuffle(questions).slice(0,20);
+
+
+    currentQuestion = 0;
+
+    userAnswers =
+      new Array(questions.length).fill(null);
+
+
+    home.classList.add("hidden");
+
+    loading.classList.add("hidden");
+
+    quiz.classList.remove("hidden");
+
+
+    showQuestion();
+
+  }
+
+  catch(err){
+
+    loading.classList.add("hidden");
+
+    error.textContent =
+      "⚠️ Gagal memuat bank soal: " +
+      err.message +
+      " Pastikan Google Sheets sudah dipublikasikan sebagai CSV.";
+
+    error.classList.remove("hidden");
+
+  }
+
+}
+
+
+/*
+==================================================
+MENAMPILKAN SOAL
+==================================================
+*/
+
+function showQuestion(){
+
+  const q =
+    questions[currentQuestion];
+
+
+  document.getElementById("questionNumber")
+    .textContent =
+    "SOAL " + (currentQuestion+1);
+
+
+  document.getElementById("progressText")
+    .textContent =
+    "Soal " +
+    (currentQuestion+1) +
+    " dari " +
+    questions.length;
+
+
+  document.getElementById("progressFill")
+    .style.width =
+    ((currentQuestion+1) /
+    questions.length * 100) +
+    "%";
+
+
+  document.getElementById("category")
+    .textContent =
+    q.kategori ||
+    "Bahasa Indonesia";
+
+
+  document.getElementById("stimulus")
+    .textContent =
+    q.stimulus ||
+    "Tidak ada stimulus.";
+
+
+  document.getElementById("questionText")
+    .textContent =
+    q.soal;
+
+
+  const optionsContainer =
+    document.getElementById("options");
+
 
   optionsContainer.innerHTML = "";
 
-  q.options.forEach((option, index) => {
 
-    const button = document.createElement("button");
+  const options = [
+
+    {letter:"A", text:q.a},
+
+    {letter:"B", text:q.b},
+
+    {letter:"C", text:q.c},
+
+    {letter:"D", text:q.d},
+
+    {letter:"E", text:q.e}
+
+  ].filter(option =>
+    option.text
+  );
+
+
+  /*
+  Acak pilihan jawaban.
+  */
+
+  const shuffledOptions =
+    shuffle(options);
+
+
+  shuffledOptions.forEach(option => {
+
+    const button =
+      document.createElement("button");
+
 
     button.className = "option";
 
-    button.textContent =
-      String.fromCharCode(65 + index) + ". " + option;
 
-    if (userAnswers[currentQuestion] === index) {
+    button.textContent =
+      option.letter +
+      ". " +
+      option.text;
+
+
+    /*
+    Simpan huruf jawaban asli.
+    */
+
+    if(userAnswers[currentQuestion] === option.letter){
+
       button.classList.add("selected");
+
     }
 
-    button.onclick = function() {
-      userAnswers[currentQuestion] = index;
+
+    button.onclick = function(){
+
+      userAnswers[currentQuestion] =
+        option.letter;
+
       showQuestion();
+
     };
+
 
     optionsContainer.appendChild(button);
 
   });
+
+
+  document.getElementById("previousBtn")
+    .style.visibility =
+    currentQuestion === 0
+    ? "hidden"
+    : "visible";
+
 }
 
-function nextQuestion() {
 
-  if (userAnswers[currentQuestion] === null) {
-    alert("Pilih salah satu jawaban terlebih dahulu! 😊");
+/*
+==================================================
+SOAL BERIKUTNYA
+==================================================
+*/
+
+function nextQuestion(){
+
+  if(userAnswers[currentQuestion] === null){
+
+    alert(
+      "Pilih salah satu jawaban terlebih dahulu! 😊"
+    );
+
     return;
+
   }
 
-  if (currentQuestion < questions.length - 1) {
+
+  if(currentQuestion <
+     questions.length-1){
+
     currentQuestion++;
+
     showQuestion();
-  } else {
+
+  }
+
+  else{
+
     finishQuiz();
+
   }
+
 }
 
-function previousQuestion() {
 
-  if (currentQuestion > 0) {
+/*
+==================================================
+SOAL SEBELUMNYA
+==================================================
+*/
+
+function previousQuestion(){
+
+  if(currentQuestion > 0){
+
     currentQuestion--;
+
     showQuestion();
+
   }
 
 }
 
-function finishQuiz() {
+
+/*
+==================================================
+SELESAI
+==================================================
+*/
+
+function finishQuiz(){
 
   let correct = 0;
 
-  questions.forEach((question, index) => {
 
-    if (userAnswers[index] === question.answer) {
+  questions.forEach((q,index)=>{
+
+    const key =
+      q.kunci
+      .trim()
+      .toUpperCase();
+
+
+    if(userAnswers[index] === key){
+
       correct++;
+
     }
 
   });
 
+
   const score =
-    Math.round((correct / questions.length) * 100);
+    Math.round(
+      (correct/questions.length)*100
+    );
 
-  document.getElementById("quiz").classList.add("hidden");
-  document.getElementById("result").classList.remove("hidden");
 
-  document.getElementById("score").textContent =
+  document.getElementById("quiz")
+    .classList.add("hidden");
+
+
+  document.getElementById("result")
+    .classList.remove("hidden");
+
+
+  document.getElementById("score")
+    .textContent =
     score;
 
-  let message = "";
 
-  if (score >= 90) {
-    message = "🌟 Luar biasa! Kemampuan Bahasa Indonesiamu keren banget!";
-  } else if (score >= 75) {
-    message = "😎 Bagus! Tinggal sedikit lagi menuju nilai sempurna!";
-  } else if (score >= 60) {
-    message = "💪 Lumayan! Terus berlatih agar semakin jago!";
-  } else {
-    message = "📚 Jangan menyerah! Yuk, belajar dan coba lagi!";
+  let message;
+
+
+  if(score >= 90){
+
+    message =
+      "🌟 Luar biasa! Kemampuan Bahasa Indonesiamu keren banget!";
+
   }
 
-  document.getElementById("resultMessage").textContent =
+  else if(score >= 75){
+
+    message =
+      "😎 Bagus! Tinggal sedikit lagi menuju nilai sempurna!";
+
+  }
+
+  else if(score >= 60){
+
+    message =
+      "💪 Lumayan! Terus berlatih agar semakin jago!";
+
+  }
+
+  else{
+
+    message =
+      "📚 Jangan menyerah! Yuk belajar dan coba lagi!";
+
+  }
+
+
+  document.getElementById("resultMessage")
+    .textContent =
+    correct +
+    " dari " +
+    questions.length +
+    " jawaban benar. " +
     message;
+
 }
 
 </script>
