@@ -3,15 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TKA Bahasa Indonesia</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   font-family:Arial,Helvetica,sans-serif;
@@ -20,28 +15,16 @@ body{
   color:#26324a;
 }
 
-.app{
-  max-width:1000px;
-  margin:auto;
-  padding:25px 18px;
-}
+.app{max-width:1000px;margin:auto;padding:25px 18px}
 
-.hero,
-.question-card,
-.result{
+.hero,.question-card,.result{
   background:rgba(255,255,255,.95);
   border-radius:30px;
   box-shadow:0 15px 40px rgba(0,0,0,.08);
 }
 
-.hero{
-  text-align:center;
-  padding:45px 25px;
-}
-
-.mascot{
-  font-size:70px;
-}
+.hero{text-align:center;padding:45px 25px}
+.mascot{font-size:70px}
 
 h1{
   font-size:clamp(2rem,6vw,4rem);
@@ -50,11 +33,7 @@ h1{
   margin:10px 0;
 }
 
-.subtitle{
-  font-size:1.15rem;
-  line-height:1.6;
-  margin-bottom:30px;
-}
+.subtitle{font-size:1.15rem;line-height:1.6;margin-bottom:30px}
 
 .features{
   display:grid;
@@ -71,11 +50,7 @@ h1{
   font-weight:bold;
 }
 
-.feature span{
-  display:block;
-  font-size:32px;
-  margin-bottom:8px;
-}
+.feature span{display:block;font-size:32px;margin-bottom:8px}
 
 .start-btn{
   border:0;
@@ -89,17 +64,10 @@ h1{
   transition:.2s;
 }
 
-.start-btn:hover{
-  transform:translateY(-3px) scale(1.03);
-}
+.start-btn:hover{transform:translateY(-3px) scale(1.03)}
+.hidden{display:none!important}
 
-.hidden{
-  display:none!important;
-}
-
-.quiz{
-  margin-top:10px;
-}
+.quiz{margin-top:10px}
 
 .topbar{
   background:white;
@@ -108,10 +76,7 @@ h1{
   margin-bottom:15px;
 }
 
-.progress-text{
-  font-weight:bold;
-  margin-bottom:10px;
-}
+.progress-text{font-weight:bold;margin-bottom:10px}
 
 .progress{
   height:12px;
@@ -127,17 +92,13 @@ h1{
   transition:.3s;
 }
 
-.question-card{
-  padding:30px;
-}
+.question-card{padding:30px}
 
 .question-number{
   color:#ff5c7a;
   font-weight:bold;
   margin-bottom:15px;
 }
-
-/* KATEGORI DIHILANGKAN */
 
 .stimulus{
   background:#f5f7ff;
@@ -156,12 +117,18 @@ h1{
   margin-bottom:20px;
 }
 
-.options{
-  display:grid;
-  gap:12px;
-}
+.options{display:grid;gap:12px}
 
+/*
+  PILIHAN JAWABAN:
+  - Tidak menampilkan A/B/C/D/E.
+  - Tidak diacak.
+  - Hover hanya sedikit mengangkat kotak, TIDAK mengubah warna.
+  - Saat diklik, hanya pilihan tersebut yang diberi class selected.
+*/
 .option{
+  display:block;
+  width:100%;
   border:3px solid #e8eaf2;
   background:white;
   padding:16px;
@@ -169,19 +136,22 @@ h1{
   text-align:left;
   cursor:pointer;
   font-size:1rem;
-  transition:.2s;
+  line-height:1.5;
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+  color:#26324a;
+  font-family:inherit;
 }
 
 .option:hover{
-  border-color:#ff9f43;
-  transform:translateX(4px);
+  border-color:#d7dbe7;
+  background:white;
+  transform:translateY(-2px);
 }
 
-/* PILIHAN YANG BENAR-BENAR DIKLIK AKAN MENYALA */
 .option.selected{
-  border-color:#ff5c7a;
-  background:#fff0f3;
-  box-shadow:0 5px 15px rgba(255,92,122,.15);
+  border-color:#7c83fd;
+  background:#f1f3ff;
+  box-shadow:0 4px 12px rgba(124,131,253,.12);
 }
 
 .navigation{
@@ -201,40 +171,15 @@ h1{
   color:white;
 }
 
-.result{
-  text-align:center;
-  padding:45px 25px;
-}
+.result{text-align:center;padding:45px 25px}
+.result-icon{font-size:70px}
+.score{font-size:5rem;font-weight:900;color:#ff5c7a;margin:20px 0}
+.result-message{font-size:1.2rem;margin-bottom:25px}
 
-.result-icon{
-  font-size:70px;
-}
+.loading{text-align:center;padding:40px}
+.spinner{font-size:50px;animation:spin 1s infinite linear}
 
-.score{
-  font-size:5rem;
-  font-weight:900;
-  color:#ff5c7a;
-  margin:20px 0;
-}
-
-.result-message{
-  font-size:1.2rem;
-  margin-bottom:25px;
-}
-
-.loading{
-  text-align:center;
-  padding:40px;
-}
-
-.spinner{
-  font-size:50px;
-  animation:spin 1s infinite linear;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .error{
   background:#fff0f0;
@@ -246,70 +191,33 @@ h1{
 }
 
 @media(max-width:700px){
-
-  .features{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .question-card{
-    padding:20px;
-  }
-
-  .navigation{
-    flex-direction:column;
-  }
-
-  .nav-btn{
-    width:100%;
-  }
+  .features{grid-template-columns:repeat(2,1fr)}
+  .question-card{padding:20px}
+  .navigation{flex-direction:column}
+  .nav-btn{width:100%}
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
-<!-- ================= BERANDA ================= -->
-
 <section id="home" class="hero">
-
   <div class="mascot">📚🧠✨</div>
-
   <h1>TKA BAHASA INDONESIA</h1>
-
   <p class="subtitle">
-    Latih kemampuan literasi, pahami teks,
+    Latih kemampuan literasi, pahami teks,<br>
     dan taklukkan soal-soal TKA! 🚀
   </p>
 
   <div class="features">
-
-    <div class="feature">
-      <span>📚</span>
-      Bank Soal
-    </div>
-
-    <div class="feature">
-      <span>🧠</span>
-      Literasi
-    </div>
-
-    <div class="feature">
-      <span>🎯</span>
-      Hitung Skor
-    </div>
-
-    <div class="feature">
-      <span>🏆</span>
-      Raih Prestasi
-    </div>
-
+    <div class="feature"><span>📚</span>Bank Soal</div>
+    <div class="feature"><span>🧠</span>Literasi</div>
+    <div class="feature"><span>🎯</span>Hitung Skor</div>
+    <div class="feature"><span>🏆</span>Raih Prestasi</div>
   </div>
 
-  <button class="start-btn" onclick="startQuiz()">
-    🚀 MULAI LATIHAN
-  </button>
+  <button class="start-btn" onclick="startQuiz()">🚀 MULAI LATIHAN</button>
 
   <div id="loadingHome" class="loading hidden">
     <div class="spinner">🔄</div>
@@ -317,145 +225,74 @@ h1{
   </div>
 
   <div id="errorHome" class="error hidden"></div>
-
 </section>
 
-
-<!-- ================= QUIZ ================= -->
-
 <section id="quiz" class="quiz hidden">
-
   <div class="topbar">
-
-    <div id="progressText" class="progress-text">
-      Soal 1
-    </div>
-
+    <div id="progressText" class="progress-text">Soal 1</div>
     <div class="progress">
       <div id="progressFill" class="progress-fill"></div>
     </div>
-
   </div>
 
-
   <div class="question-card">
-
-    <div id="questionNumber" class="question-number">
-      SOAL 1
-    </div>
-
+    <div id="questionNumber" class="question-number">SOAL 1</div>
     <div id="stimulus" class="stimulus"></div>
-
     <div id="questionText" class="question-text"></div>
-
     <div id="options" class="options"></div>
 
     <div class="navigation">
-
-      <button
-        id="previousBtn"
-        class="nav-btn"
-        onclick="previousQuestion()">
+      <button id="previousBtn" class="nav-btn" onclick="previousQuestion()">
         ← Sebelumnya
       </button>
-
-      <button
-        class="nav-btn"
-        onclick="nextQuestion()">
+      <button class="nav-btn" onclick="nextQuestion()">
         Selanjutnya →
       </button>
-
     </div>
-
   </div>
-
 </section>
 
-
-<!-- ================= HASIL ================= -->
-
 <section id="result" class="result hidden">
-
   <div class="result-icon">🏆</div>
-
   <h2>LATIHAN SELESAI!</h2>
-
   <div id="score" class="score">0</div>
-
   <div id="resultMessage" class="result-message"></div>
-
-  <button class="start-btn" onclick="startQuiz()">
-    🔄 ULANGI LATIHAN
-  </button>
-
+  <button class="start-btn" onclick="startQuiz()">🔄 ULANGI LATIHAN</button>
 </section>
 
 </div>
 
-
 <script>
-
-/* ==================================================
-   SUMBER BANK SOAL
-   ================================================== */
-
 const CSV_URL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzpZmOAkdsqMY4mncLx1OyIsq1QGYIKUg_Tr9jKT44QUnMh_BDKeS0f95AIOW-FSUS5OTINPtb8bpO/pub?output=csv";
-
 
 let questions = [];
 let currentQuestion = 0;
 let userAnswers = [];
 
-
-/* ==================================================
-   MEMBACA GOOGLE SHEETS
-   ================================================== */
-
 async function loadQuestions(){
-
-  const response =
-    await fetch(CSV_URL + "&cache=" + Date.now());
+  const response = await fetch(CSV_URL + "&cache=" + Date.now());
 
   if(!response.ok){
-    throw new Error(
-      "Bank soal tidak dapat diakses."
-    );
+    throw new Error("Bank soal tidak dapat diakses.");
   }
 
-  const csv =
-    await response.text();
-
-  const rows =
-    parseCSV(csv);
+  const csv = await response.text();
+  const rows = parseCSV(csv);
 
   if(rows.length < 2){
-    throw new Error(
-      "Bank soal masih kosong."
-    );
+    throw new Error("Bank soal masih kosong.");
   }
 
-  const headers =
-    rows[0].map(h =>
-      h.trim().toLowerCase()
-    );
+  const headers = rows[0].map(h => h.trim().toLowerCase());
 
-  const data =
-    rows.slice(1);
-
-  questions =
-    data
+  questions = rows.slice(1)
     .map(row => {
-
       const item = {};
-
-      headers.forEach((header,index)=>{
-        item[header] =
-          (row[index] || "").trim();
+      headers.forEach((header,index) => {
+        item[header] = (row[index] || "").trim();
       });
-
       return item;
-
     })
     .filter(q =>
       q.soal &&
@@ -467,544 +304,228 @@ async function loadQuestions(){
     );
 
   if(questions.length === 0){
-
     throw new Error(
-      "Tidak ditemukan soal yang lengkap. " +
-      "Periksa kolom Google Sheets."
+      "Tidak ditemukan soal yang lengkap. Periksa kolom Google Sheets."
     );
-
   }
-
 }
 
-
-/* ==================================================
-   CSV PARSER
-   ================================================== */
-
 function parseCSV(text){
-
   const rows = [];
-
   let row = [];
   let value = "";
   let insideQuotes = false;
 
   for(let i=0;i<text.length;i++){
-
     const char = text[i];
     const next = text[i+1];
 
-    if(
-      char === '"' &&
-      insideQuotes &&
-      next === '"'
-    ){
-
+    if(char === '"' && insideQuotes && next === '"'){
       value += '"';
       i++;
-
     }
-
     else if(char === '"'){
-
-      insideQuotes =
-        !insideQuotes;
-
+      insideQuotes = !insideQuotes;
     }
-
-    else if(
-      char === "," &&
-      !insideQuotes
-    ){
+    else if(char === "," && !insideQuotes){
+      row.push(value);
+      value = "";
+    }
+    else if((char === "\n" || char === "\r") && !insideQuotes){
+      if(char === "\r" && next === "\n") i++;
 
       row.push(value);
       value = "";
 
-    }
-
-    else if(
-      (char === "\n" || char === "\r") &&
-      !insideQuotes
-    ){
-
-      if(
-        char === "\r" &&
-        next === "\n"
-      ){
-        i++;
-      }
-
-      row.push(value);
-      value = "";
-
-      if(
-        row.length > 1 ||
-        row[0] !== ""
-      ){
+      if(row.length > 1 || row[0] !== ""){
         rows.push(row);
       }
 
       row = [];
-
     }
-
     else{
-
       value += char;
-
     }
-
   }
 
-
-  if(
-    value !== "" ||
-    row.length > 0
-  ){
-
+  if(value !== "" || row.length > 0){
     row.push(value);
     rows.push(row);
-
   }
 
   return rows;
 }
 
-
-/* ==================================================
-   MULAI LATIHAN
-   TIDAK ADA PENGACAKAN SOAL
-   ================================================== */
-
 async function startQuiz(){
-
-  const home =
-    document.getElementById("home");
-
-  const quiz =
-    document.getElementById("quiz");
-
-  const result =
-    document.getElementById("result");
-
-  const loading =
-    document.getElementById("loadingHome");
-
-  const error =
-    document.getElementById("errorHome");
-
+  const home = document.getElementById("home");
+  const quiz = document.getElementById("quiz");
+  const result = document.getElementById("result");
+  const loading = document.getElementById("loadingHome");
+  const error = document.getElementById("errorHome");
 
   error.classList.add("hidden");
   result.classList.add("hidden");
   loading.classList.remove("hidden");
 
-
   try{
-
     await loadQuestions();
 
-    /*
-      SOAL TIDAK DIACAK.
-
-      Urutan soal mengikuti
-      urutan Google Sheets.
-    */
-
     currentQuestion = 0;
-
-    userAnswers =
-      new Array(
-        questions.length
-      ).fill(null);
-
+    userAnswers = new Array(questions.length).fill(null);
 
     home.classList.add("hidden");
     loading.classList.add("hidden");
     quiz.classList.remove("hidden");
 
-
     showQuestion();
-
   }
-
   catch(err){
-
     loading.classList.add("hidden");
-
     error.textContent =
       "⚠️ Gagal memuat bank soal: " +
       err.message +
       " Pastikan Google Sheets sudah dipublikasikan sebagai CSV.";
-
     error.classList.remove("hidden");
-
   }
-
 }
-
-
-/* ==================================================
-   MENAMPILKAN SOAL
-   ================================================== */
 
 function showQuestion(){
+  const q = questions[currentQuestion];
 
-  const q =
-    questions[currentQuestion];
+  document.getElementById("questionNumber").textContent =
+    "SOAL " + (currentQuestion + 1);
 
+  document.getElementById("progressText").textContent =
+    "Soal " + (currentQuestion + 1) +
+    " dari " + questions.length;
 
-  document.getElementById(
-    "questionNumber"
-  ).textContent =
-    "SOAL " +
-    (currentQuestion + 1);
+  document.getElementById("progressFill").style.width =
+    ((currentQuestion + 1) / questions.length * 100) + "%";
 
+  const stimulus = document.getElementById("stimulus");
+  stimulus.textContent = q.stimulus || "";
+  stimulus.style.display = q.stimulus ? "block" : "none";
 
-  document.getElementById(
-    "progressText"
-  ).textContent =
-    "Soal " +
-    (currentQuestion + 1) +
-    " dari " +
-    questions.length;
+  document.getElementById("questionText").textContent = q.soal;
 
-
-  document.getElementById(
-    "progressFill"
-  ).style.width =
-    (
-      (currentQuestion + 1) /
-      questions.length *
-      100
-    ) + "%";
-
-
-  document.getElementById(
-    "stimulus"
-  ).textContent =
-    q.stimulus || "";
-
-
-  /*
-    Kalau stimulus kosong,
-    sembunyikan kotaknya.
-  */
-
-  const stimulus =
-    document.getElementById("stimulus");
-
-  if(q.stimulus){
-
-    stimulus.style.display =
-      "block";
-
-  }else{
-
-    stimulus.style.display =
-      "none";
-
-  }
-
-
-  document.getElementById(
-    "questionText"
-  ).textContent =
-    q.soal;
-
-
-  const optionsContainer =
-    document.getElementById("options");
-
+  const optionsContainer = document.getElementById("options");
   optionsContainer.innerHTML = "";
 
-
   /*
-    PILIHAN TIDAK DIACAK.
-
-    Urutannya selalu:
-    q.a
-    q.b
-    q.c
-    q.d
-    q.e
-
-    Tetapi huruf A/B/C/D/E
-    TIDAK DITAMPILKAN.
+    PENTING:
+    Posisi pilihan mengikuti kolom A, B, C, D, E
+    di Google Sheets. Tidak diacak.
   */
-
   const options = [
+    { text:q.a, index:0 },
+    { text:q.b, index:1 },
+    { text:q.c, index:2 },
+    { text:q.d, index:3 },
+    { text:q.e, index:4 }
+  ].filter(item => item.text && item.text.trim() !== "");
 
-    q.a,
-    q.b,
-    q.c,
-    q.d,
-    q.e
+  options.forEach(item => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "option";
+    button.textContent = item.text;
 
-  ].filter(option =>
-    option &&
-    option.trim() !== ""
-  );
-
-
-  options.forEach(
-    (optionText,index)=>{
-
-      const button =
-        document.createElement("button");
-
-
-      button.className =
-        "option";
-
-
-      /*
-        Tampilkan hanya teks jawaban.
-        Tidak ada A. B. C. D. E.
-      */
-
-      button.textContent =
-        optionText;
-
-
-      /*
-        Jika pilihan yang tersimpan
-        adalah pilihan ini,
-        beri tanda selected.
-      */
-
-      if(
-        userAnswers[currentQuestion] === index
-      ){
-
-        button.classList.add(
-          "selected"
-        );
-
-      }
-
-
-      /*
-        INI BAGIAN PENTING.
-
-        Ketika siswa mengklik pilihan
-        kedua, yang disimpan adalah
-        index 1.
-
-        Jadi tidak mungkin lagi
-        pilihan kedua menyala tetapi
-        pilihan pertama yang dianggap
-        dipilih.
-      */
-
-      button.onclick =
-        function(){
-
-          userAnswers[currentQuestion] =
-            index;
-
-          showQuestion();
-
-        };
-
-
-      optionsContainer.appendChild(
-        button
-      );
-
+    /*
+      Hanya pilihan yang memang tersimpan
+      sebagai jawaban pengguna yang diberi selected.
+    */
+    if(userAnswers[currentQuestion] === item.index){
+      button.classList.add("selected");
     }
-  );
 
+    /*
+      Jangan memanggil showQuestion() saat klik.
+      Cukup ubah pilihan yang aktif pada halaman.
+      Ini mencegah pilihan pertama ikut menyala.
+    */
+    button.addEventListener("click", () => {
+      userAnswers[currentQuestion] = item.index;
 
-  document.getElementById(
-    "previousBtn"
-  ).style.visibility =
-    currentQuestion === 0
-      ? "hidden"
-      : "visible";
+      optionsContainer.querySelectorAll(".option").forEach(option => {
+        option.classList.remove("selected");
+      });
 
+      button.classList.add("selected");
+    });
+
+    optionsContainer.appendChild(button);
+  });
+
+  document.getElementById("previousBtn").style.visibility =
+    currentQuestion === 0 ? "hidden" : "visible";
 }
-
-
-/* ==================================================
-   SOAL BERIKUTNYA
-   ================================================== */
 
 function nextQuestion(){
-
-  if(
-    userAnswers[currentQuestion] === null
-  ){
-
-    alert(
-      "Pilih salah satu jawaban terlebih dahulu! 😊"
-    );
-
+  if(userAnswers[currentQuestion] === null){
+    alert("Pilih salah satu jawaban terlebih dahulu! 😊");
     return;
-
   }
 
-
-  if(
-    currentQuestion <
-    questions.length - 1
-  ){
-
+  if(currentQuestion < questions.length - 1){
     currentQuestion++;
-
     showQuestion();
-
   }
-
   else{
-
     finishQuiz();
-
   }
-
 }
-
-
-/* ==================================================
-   SOAL SEBELUMNYA
-   ================================================== */
 
 function previousQuestion(){
-
   if(currentQuestion > 0){
-
     currentQuestion--;
-
     showQuestion();
-
   }
-
 }
 
-
-/* ==================================================
-   MENYELESAIKAN LATIHAN
-   ================================================== */
-
 function finishQuiz(){
-
   let correct = 0;
 
+  questions.forEach((q,index) => {
+    const key = q.kunci.trim().toUpperCase();
 
-  questions.forEach(
-    (q,index)=>{
+    const keyIndex = {
+      A:0,
+      B:1,
+      C:2,
+      D:3,
+      E:4
+    }[key];
 
-      /*
-        Kunci di Google Sheets
-        tetap menggunakan A/B/C/D/E.
-
-        Kita ubah menjadi nomor posisi.
-
-        A = 0
-        B = 1
-        C = 2
-        D = 3
-        E = 4
-      */
-
-      const key =
-        q.kunci
-        .trim()
-        .toUpperCase();
-
-
-      const keyIndex =
-        {
-          A:0,
-          B:1,
-          C:2,
-          D:3,
-          E:4
-        }[key];
-
-
-      if(
-        userAnswers[index] === keyIndex
-      ){
-
-        correct++;
-
-      }
-
+    if(userAnswers[index] === keyIndex){
+      correct++;
     }
-  );
+  });
 
+  const score = Math.round((correct / questions.length) * 100);
 
-  const score =
-    Math.round(
-      (
-        correct /
-        questions.length
-      ) * 100
-    );
-
-
-  document.getElementById(
-    "quiz"
-  ).classList.add("hidden");
-
-
-  document.getElementById(
-    "result"
-  ).classList.remove("hidden");
-
-
-  document.getElementById(
-    "score"
-  ).textContent =
-    score;
-
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+  document.getElementById("score").textContent = score;
 
   let message;
 
-
   if(score >= 90){
-
-    message =
-      "🌟 Luar biasa! Kemampuan Bahasa Indonesiamu keren banget!";
-
+    message = "🌟 Luar biasa! Kemampuan Bahasa Indonesiamu keren banget!";
   }
-
   else if(score >= 75){
-
-    message =
-      "😎 Bagus! Tinggal sedikit lagi menuju nilai sempurna!";
-
+    message = "😎 Bagus! Tinggal sedikit lagi menuju nilai sempurna!";
   }
-
   else if(score >= 60){
-
-    message =
-      "💪 Lumayan! Terus berlatih agar semakin jago!";
-
+    message = "💪 Lumayan! Terus berlatih agar semakin jago!";
   }
-
   else{
-
-    message =
-      "📚 Jangan menyerah! Yuk belajar dan coba lagi!";
-
+    message = "📚 Jangan menyerah! Yuk belajar dan coba lagi!";
   }
 
-
-  document.getElementById(
-    "resultMessage"
-  ).textContent =
-
-    correct +
-    " dari " +
-    questions.length +
-    " jawaban benar. " +
-    message;
-
+  document.getElementById("resultMessage").textContent =
+    correct + " dari " + questions.length +
+    " jawaban benar. " + message;
 }
-
 </script>
-
 </body>
 </html>
